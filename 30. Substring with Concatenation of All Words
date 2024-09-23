@@ -1,0 +1,26 @@
+words = ["bar","foo","the"]
+s = "barfoofoobarthefoobarman"
+lw = len(words)
+li = len(words[0])
+res = []
+
+
+def fss(s: str, start: int, words: list[str], lw, li, v):
+    if not lw:
+        res.append(v)
+        return
+    for j in range(lw):
+        if s[start : start + li] == words[j]:
+                words[j], words[lw - 1] = words[lw - 1], words[j]
+                fss(s, start + li, words, lw - 1, li, v)
+                break
+    return
+
+
+for v in range(len(s) - (li * lw) + 1):
+    for j in range(lw):
+        if s[v: v + li] == words[j]:
+            words[j], words[lw - 1] = words[lw - 1], words[j]
+            fss(s, v + li, words, lw - 1, li, v)
+            break
+print(res)
